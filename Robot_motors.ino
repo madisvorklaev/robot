@@ -1,4 +1,4 @@
-///L293D
+//L293D
 //Motor A
 const int motorPin1  = 6;  // Pin 14 of L293
 const int motorPin2  = 7;  // Pin 10 of L293
