@@ -1,3 +1,5 @@
+#include <Console.h>
+
 //L293D
 //Motor A
 const int motorPin1  = 6;  // Pin 14 of L293
@@ -25,6 +27,14 @@ int speed = 100;
 
 //This will run only one time.
 void setup(){
+
+  Bridge.begin();
+  Console.begin(); 
+
+  while (!Console){
+    ; // wait for Console port to connect.
+  }
+  Console.println("You're connected to the Console!!!!");
  
     //Set pins as outputs
     pinMode(motorPin1, OUTPUT);
@@ -89,8 +99,8 @@ int leftSensor(){
     // Calculating the distance
     leftDistance= leftDuration*0.034/2;
     // Prints the distance on the Serial Monitor
-    Serial.print("Distance in left: ");
-    Serial.println(leftDistance);
+    Console.print("Distance in left: ");
+    Console.println(leftDistance);
     return leftDistance;
   }
 int frontSensor(){
@@ -106,8 +116,8 @@ int frontSensor(){
     // Calculating the distance
     frontDistance= frontDuration*0.034/2;
     // Prints the distance on the Serial Monitor
-    Serial.print("Distance in back: ");
-    Serial.println(frontDistance);
+    Console.print("Distance in back: ");
+    Console.println(frontDistance);
     return frontDistance;
   }
 int rightSensor(){
@@ -123,8 +133,8 @@ int rightSensor(){
     // Calculating the distance
     rightDistance= rightDuration*0.034/2;
     // Prints the distance on the Serial Monitor
-    Serial.print("Distance in right: ");
-    Serial.println(rightDistance);
+    Console.print("Distance in right: ");
+    Console.println(rightDistance);
     return rightDistance;
   }
 
@@ -142,10 +152,10 @@ void turnLeft(){
     leftDuration = pulseIn(leftEchoPin, HIGH);
     frontDistance = frontDuration*0.034/2;
     leftDistance = leftDuration*0.034/2;
-    Serial.print("Distance in front: ");
-    Serial.println(frontDistance);
-    Serial.print("Distance in left: ");
-    Serial.println(leftDistance);
+    Console.print("Distance in front: ");
+    Console.println(frontDistance);
+    Console.print("Distance in left: ");
+    Console.println(leftDistance);
     
     //return backDistance;
   }
@@ -157,7 +167,7 @@ void loop(){
     }
   while(frontDistance > 5);
   stopp();
-  if ()
+  //if ()
   do{
     turnLeft();
     right();

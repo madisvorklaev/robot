@@ -23,28 +23,35 @@ void setup() {
   Bridge.begin(); // Serial bridge 32u4<->AR9331
   Console.begin(); // Open WIFI serial monitor  
   digitalWrite(enable, LOW);
-  delay(10);
+  analogWrite(motor1, 26);
+  analogWrite(motor2, 26);
+  delay(50);
 }
 
 void forwards(){  
   analogWrite(motor1, speed);
   analogWrite(motor2, speed);
+  delay(10);
   digitalWrite(motorDir1, HIGH);
   digitalWrite(motorDir2, LOW);
+  delay(10);
   digitalWrite(enable, HIGH);
 }
 
 void backwards(){ 
   analogWrite(motor1, speed);
   analogWrite(motor2, speed);
+  delay(10);
   digitalWrite(motorDir1, LOW);
   digitalWrite(motorDir2, HIGH);
+  delay(10);
   digitalWrite(enable, HIGH);
 }
 
 void stopp(){  
   analogWrite(motor1, 26);
   analogWrite(motor2, 26);
+  delay(10);
   digitalWrite(enable, LOW);
 }
 
@@ -53,29 +60,34 @@ void loop() {
 {
     for (uint8_t i = 0; i < SONAR_NUM; i++) { // Loop through each sensor and display results.
     delay(50); // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
-    Console.print(i);
-    Console.print("=");
-    Console.print(sonar[i].ping_cm());
-    Console.print("cm ");
+//    Console.print(i);
+//    Console.print("=");
+//    Console.print(sonar[i].ping_cm());
+//    Console.print("cm ");
   }
-  Console.println();
+//  Console.println();
   forwards();
+  Console.println(sonar[0].ping_cm());
 } while(sonar[0].ping_cm()>10)  ;
-   
+   stopp();
+   delay(2000);
   if(sonar[0].ping_cm()<10){
    
     do
 {
     for (uint8_t i = 0; i < SONAR_NUM; i++) { // Loop through each sensor and display results.
     delay(50); // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
-    Console.print(i);
-    Console.print("=");
-    Console.print(sonar[i].ping_cm());
-    Console.print("cm ");
+//    Console.print(i);
+//    Console.print("=");
+//    Console.print(sonar[i].ping_cm());
+//    Console.print("cm ");
   }
-  Console.println();
+//  Console.println();
   backwards();
+  Console.println(sonar[2].ping_cm());
 } while(sonar[2].ping_cm()>10);
 }
+stopp();
+delay(2000);
 }
 
